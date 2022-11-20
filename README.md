@@ -1,17 +1,15 @@
 ## `Node, Express, TypeScript, MongoDB -- Server`
 
-`Express && TypeScript` magic for your next project.
+`Express && TypeScript` Rest APIs...
 
-👉 All the files are `pre configured` for you.
-
-   Just clone and start working. 👈
+👉 `e-commerce rest apis` 👈
 
 ## Overview
 
-* All the files and folders are preconfigured
-* Best project structure
-* Best for any `Small | Medium | Large ` project
-* Lets you define your own ways (to `Code` instead of `Forcing`) you
+* Authentication for users using JWT...
+* CRUD operations for product
+* Special access for `Customer | Admin` users.
+* Ready to use for any project which need `Authentication`...
 
 
 ## Dependencies of the project
