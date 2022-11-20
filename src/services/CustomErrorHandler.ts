@@ -19,6 +19,10 @@ class CustomErrorHandler extends Error {
         return new CustomErrorHandler(404, message);
     }
 
+    static alreadyExists(message: string = "Credentials already exists") {
+        return new CustomErrorHandler(422, message);
+    }
+
     // Define other errors here...
 }
 

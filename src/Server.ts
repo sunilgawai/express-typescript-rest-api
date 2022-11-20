@@ -4,7 +4,7 @@ import morgan from 'morgan';
 import { APP_PORT } from "../config";
 import { DataBaseConnection } from "../database";
 import { errorHandler } from "./middlewares";
-import router from "./routes";
+import { userRoutes } from "./routes";
 const app: Application = express();
 
 // Database connection....
@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }))
 
 // Routes....
-app.use('/api/v1', router);
+app.use('/api/v1/users', userRoutes);
 app.use('/', (_req: Request, _res: Response, _next: NextFunction) => {
     _res.send(`<h1> <404/> No data found for this route</h1>`);
 })

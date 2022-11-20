@@ -7,4 +7,4 @@ const registerSchema = Joi.object({
     repeat_password: Joi.ref('password')
 })
 // to use ==>const { error } = registerSchema.validate(req.body);
-export default registerSchema;
+export { registerSchema };
