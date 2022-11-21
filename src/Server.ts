@@ -12,9 +12,9 @@ DataBaseConnection();
 
 // Middlewares....
 app.use(cors());
-app.use(morgan('dev'))
+app.use(morgan('dev'));
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }))
+app.use(express.urlencoded({ extended: true }));
 
 // Routes....
 app.use('/api/v1/users', userRoutes);

@@ -7,4 +7,9 @@ const registerSchema = Joi.object({
     repeat_password: Joi.ref('password')
 })
 // to use ==>const { error } = registerSchema.validate(req.body);
-export { registerSchema };
+
+const loginSchema = Joi.object({
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).max(16).pattern(new RegExp('^[a-zA-Z0-9]{3,30}$'))
+});
+export { registerSchema, loginSchema };

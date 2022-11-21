@@ -24,6 +24,9 @@ class CustomErrorHandler extends Error {
     }
 
     // Define other errors here...
+    static wrongCredentials(message: string = "Credentials does not match") {
+        return new CustomErrorHandler(422, message);
+    }
 }
 
 export default CustomErrorHandler;
