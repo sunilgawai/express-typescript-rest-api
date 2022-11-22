@@ -4,6 +4,8 @@ import User from "../../models/User";
 import { registerSchema } from "../../validators";
 import { CustomErrorHandler, JwtService } from "../../services";
 
+
+
 const registerController: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     // Validate request body.
     const { error } = registerSchema.validate(req.body);

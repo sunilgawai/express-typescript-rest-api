@@ -4,7 +4,9 @@ import User from "../../models/User";
 import { CustomErrorHandler, JwtService } from "../../services";
 import { loginSchema } from "../../validators";
 
-const loginController: RequestHandler = async <ILoginRequestSchema, ILoginResponseSchema>(req: Request, res: Response, next: NextFunction) => {
+
+
+const loginController: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
     // check error in request.
     const { error } = loginSchema.validate(req.body);
