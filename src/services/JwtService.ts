@@ -6,7 +6,7 @@ class JwtService {
         return jwt.sign(payload, secret, { expiresIn: expiry })
     }
 
-    static verify(token: string, secret: jwt.Secret = JWT_SECRET!): JwtPayload | string {
+    static verify(token: string, secret: jwt.Secret = JWT_SECRET!): JwtPayload | string { //: JwtPayload | string
         return jwt.verify(token, secret);
     }
 }

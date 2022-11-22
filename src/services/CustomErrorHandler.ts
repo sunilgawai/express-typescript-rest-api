@@ -25,7 +25,11 @@ class CustomErrorHandler extends Error {
 
     // Define other errors here...
     static wrongCredentials(message: string = "Credentials does not match") {
-        return new CustomErrorHandler(422, message);
+        return new CustomErrorHandler(401, message);
+    }
+
+    static unAuthorized(message: string = "unAuthorized") {
+        return new CustomErrorHandler(401, message);
     }
 }
 

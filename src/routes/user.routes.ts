@@ -1,8 +1,13 @@
 import { Router, IRouter } from "express";
-import { loginController, registerController, userController } from "../controllers";
+import { loginController, registerController, UserController } from "../controllers";
+import { auth } from "../middlewares";
+// import UserController from "../controllers/auth/userController";
 
 const userRoutes: IRouter = Router();
 
+/**
+ * User Operation Routes.
+ */
 
 /**
  * Register User.
@@ -15,12 +20,12 @@ userRoutes.post('/register', registerController);
 userRoutes.post('/login', loginController);
 
 /**
- * User Operation Routes.
+ * Profile Get
  */
 
-// Define your routes here....
-userRoutes.get('/user/profile', userController);
+userRoutes.get('/profile', auth, UserController.getProfile );
 
+// Define your routes here....
 
 
 export default userRoutes;
