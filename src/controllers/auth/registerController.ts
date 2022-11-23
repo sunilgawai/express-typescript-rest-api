@@ -35,6 +35,7 @@ const registerController: RequestHandler = async (req: Request, res: Response, n
             email,
             password: hashedPassword
         });
+        
         result = await user.save();
     } catch (error) {
         return next(error);

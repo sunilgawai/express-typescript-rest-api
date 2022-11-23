@@ -1,3 +1,9 @@
+interface JwtPayloadData { 
+    _id: string, 
+    role: string, 
+    iat: number, 
+    exp: number 
+}
 
 interface IUser {
     name: string
@@ -24,4 +30,4 @@ interface ILoginResponseSchema {
     access_token: string
 }
 
-export { IUser, ILoginRequestSchema, ILoginResponseSchema }
+export { IUser, ILoginRequestSchema, ILoginResponseSchema, JwtPayloadData }

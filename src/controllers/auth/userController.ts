@@ -2,9 +2,10 @@ import { NextFunction, Request, Response, RequestHandler } from "express";
 
 class UserController {
     static getProfile : RequestHandler = (req: Request, res: Response, next: NextFunction) => {
-        res.json({name:" profile"})
+        const user = req.user;
+        const access_token = req.access_token;
+        res.json({user, access_token})
     }
-
     
 }
 
@@ -12,4 +13,4 @@ class UserController {
 //     return res.status(200).json({ msg: 'user...' })
 // }
 
-export default UserController;
+export {UserController};

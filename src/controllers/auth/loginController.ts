@@ -1,14 +1,14 @@
-import bcrypt from 'bcrypt';
 import { NextFunction, Request, Response, RequestHandler } from "express";
-import User from "../../models/User";
 import { CustomErrorHandler, JwtService } from "../../services";
 import { loginSchema } from "../../validators";
+import User from "../../models/User";
+import bcrypt from 'bcrypt';
 
 
 
 const loginController: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
     const { email, password } = req.body;
-    // check error in request.
+    // check data/error in request.
     const { error } = loginSchema.validate(req.body);
 
     if(error) {
@@ -19,7 +19,7 @@ const loginController: RequestHandler = async (req: Request, res: Response, next
     let user;
     let access_token;
     try {
-        user = await User.findOne({email});
+        user = await User.findOne({ email }).select('-createdAt -updatedAt -__v -password');
         if(!user) {
             return next(CustomErrorHandler.notFound("User Not Found"));
         }
