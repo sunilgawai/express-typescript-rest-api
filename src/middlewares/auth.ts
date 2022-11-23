@@ -1,6 +1,6 @@
 import { Request, Response, NextFunction, RequestHandler } from "express";
-import { CustomErrorHandler, JwtService } from "../services";
-import { JwtPayloadData } from "../@types";
+import { CustomErrorHandler } from "../services";
+// import { JwtPayloadData } from "../@types";
 
 
 const auth: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
@@ -22,11 +22,12 @@ const auth: RequestHandler = async (req: Request, res: Response, next: NextFunct
         req.access_token = access_token;
 
         // Appending the user properties to Request Interface.
-        let { _id, role } = <JwtPayloadData>JwtService.verify(access_token);
-        if (req.user) {
-            req.user._id = _id;
-            req.user.role = role;
-        }
+        // let { _id, role } = <JwtPayloadData>JwtService.verify(access_token);
+        // console.log(_id, role)
+        // if (req.user) {
+        //     req.user._id = _id;
+        //     req.user.role = role;
+        // }
 
     } catch (error) {
         return next(error);
