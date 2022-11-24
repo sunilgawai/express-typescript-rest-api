@@ -1,12 +1,13 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Document } from "mongoose";
 
-interface IProduct {
+interface IProduct extends Document {
     name: string
     price: string
     size: "sm" | "lg" | "xl"
     desc: string
     images: string[]
     liked: boolean
+    featured: boolean
 }
 
 const productSchema = new Schema({
