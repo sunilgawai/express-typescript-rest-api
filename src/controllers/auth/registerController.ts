@@ -3,6 +3,8 @@ import bcrypt from "bcrypt";
 import User from "../../models/User";
 import { registerSchema } from "../../validators";
 import { CustomErrorHandler, JwtService } from "../../services";
+import { REFRESH_SECRET } from "../../../config";
+import { RefreshToken } from "../../models";
 
 
 
@@ -18,7 +20,7 @@ const registerController: RequestHandler = async (req: Request, res: Response, n
     const { name, email, password } = req.body;
 
     // Check if user already exists...
-    let exists = await User.findOne({email});
+    let exists = await User.findOne({ email });
 
     if (exists) {
         console.log('user exists')
@@ -35,24 +37,29 @@ const registerController: RequestHandler = async (req: Request, res: Response, n
             email,
             password: hashedPassword
         });
-        
+
         result = await user.save();
     } catch (error) {
         return next(error);
     }
     console.log(result);
 
-    // Create JWT.
+    // Create JWT Tokens.
     let access_token: string;
+    let refresh_token: string;
     try {
-        access_token = JwtService.sign({ _id: result._id, role: result.role})
+        access_token = JwtService.sign({ _id: result._id, role: result.role });
+        refresh_token = JwtService.sign({ _id: result._id, role: result.role }, '1y', REFRESH_SECRET);
     } catch (error) {
         return next(error);
     }
 
+    // Database whitelisting.
+    let token = await new RefreshToken({ token: refresh_token }).save()
+    console.log(token)
+
     // Return Data.
-    return res.status(200).json({result, access_token});
-    // return res.status(200).json({ msg: 'register user...' })
+    return res.status(200).json({ result, access_token, refresh_token });
 }
 
 

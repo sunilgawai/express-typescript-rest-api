@@ -1,8 +1,6 @@
 import { Router, IRouter } from "express";
-import { loginController, registerController } from "../controllers";
+import { loginController, registerController, UserController } from "../controllers";
 import { auth } from "../middlewares";
-import { UserController } from "../controllers/auth/UserController";
-// import UserController from "../controllers/auth/userController";
 
 const userRoutes: IRouter = Router();
 
@@ -23,9 +21,12 @@ userRoutes.post('/login', loginController);
 /**
  * Profile Get
  */
-
 userRoutes.get('/profile', auth, UserController.getProfile);
 
+/**
+ * Refresh Token.
+ */
+userRoutes.post('/refresh-token', UserController.refreshToken);
 // Define your routes here....
 
 
