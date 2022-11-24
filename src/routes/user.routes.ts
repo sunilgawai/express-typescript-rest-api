@@ -27,6 +27,11 @@ userRoutes.get('/profile', auth, UserController.getProfile);
  * Refresh Token.
  */
 userRoutes.post('/refresh-token', UserController.refreshToken);
+
+/**
+ * Logout Route.
+ */
+userRoutes.post('/logout', auth, UserController.logout);
 // Define your routes here....
 
 
