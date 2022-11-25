@@ -12,6 +12,14 @@ DataBaseConnection();
 
 // Middlewares....
 // Global Application Path.
+declare global {
+    var someValue: string;
+    namespace NodeJS {
+        interface Global {
+            someValue: string;
+        }
+    }
+}
 // global.appRoot = path.resolve(__dirname);
 app.use(cors());
 app.use(morgan('dev'));

@@ -4,6 +4,7 @@ import path from "path";
 import fs from "fs";
 import { CustomErrorHandler } from "../../services";
 import { productValidationSchema } from "../../validators";
+import { APP_URL } from "../../../config";
 
 const storage = multer.diskStorage({
     destination(req, file, callback) {
@@ -32,13 +33,17 @@ const store: RequestHandler = (req: Request, res: Response, next: NextFunction) 
         const { error } = productValidationSchema.validate(req.body);
         if (error) {
             // If Error Delete File From Storage.
-            fs.unlink(`${appRoot}/${filePath}`, err => {
-                
+            fs.unlink(`${APP_URL}/${filePath}`, err => {
+                if(err) {
+                    return next(CustomErrorHandler.serverError());
+                }
             })
         }
-
+        return next(error);
+        // rootfolder/uploads/filename.png
     })
 
+    // Handling the saving functionalities.
 
     res.json({name:"ok"})
 }

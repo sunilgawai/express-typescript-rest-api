@@ -14,7 +14,10 @@ declare global {
             access_token: string | JwtPayload
         }
     }
-    // Providing Global Path for the application.
+}
+
+// Providing Global Path for the application.
+declare global {
     namespace NodeJS {
         interface Global {
             appRoot: string;
