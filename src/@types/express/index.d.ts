@@ -7,10 +7,17 @@ import { JwtPayload } from 'jsonwebtoken';
 import express from "express";
 
 declare global {
+    // Providing Custom Request Properties/Interface.
     namespace Express {
         interface Request {
             user?: Record<string, any>
             access_token: string | JwtPayload
+        }
+    }
+    // Providing Global Path for the application.
+    namespace NodeJS {
+        interface Global {
+            appRoot: string;
         }
     }
 }

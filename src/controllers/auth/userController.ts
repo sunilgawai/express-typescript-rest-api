@@ -17,6 +17,24 @@ class UserController {
         }
     }
 
+    static logout: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
+        const refreshSchema = Joi.object({
+            refresh_token: Joi.string().required()
+        })
+        const { error } = refreshSchema.validate(req.body);
+        if(error){
+            return next(error);
+        }
+
+        try {
+            await RefreshToken.deleteOne({token: req.body.refresh_token});
+        } catch (error) {
+            return next(new Error('Something went wrong in the database'));
+        }
+
+        res.status(200).json({message: "logged out successfully"});
+    }
+
     static refreshToken: RequestHandler = async (req: Request, res: Response, next: NextFunction) => {
         // validate the request.
         const refreshSchema = Joi.object({
