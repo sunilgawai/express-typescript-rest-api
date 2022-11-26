@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { store } from "../controllers";
+import { get, store } from "../controllers";
 import { handleMultipartData } from "../middlewares";
 const productRouter = Router();
 
+/**
+ * Get Products.
+ */
+productRouter.get('/', get);
 /**
  * Store Product.
  */
