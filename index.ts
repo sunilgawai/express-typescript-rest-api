@@ -1,11 +1,7 @@
+const path = require('path');
 
-import path from "path";
+const rootUrl = path.resolve(__dirname);
 
-// const appRoot = path.resolve(__dirname);
-export const rootUrl = path.resolve(__dirname);
-
-// export const {
-    
-// } = path.resolve(__dirname);
-
-// export {appRoot};
+module.exports = {
+    rootUrl
+}

@@ -27,8 +27,14 @@ const productSchema = new Schema({
         type: String,
         required: true
     },
-    images: {
+    images: 
+    {
         type: [String],
+        // [
+        //     {
+        //         type: String
+        //     }
+        // ],
         required: true,
         // get: v => `${APP_URL}/public/uploads/${v}`
     },

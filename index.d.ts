@@ -4,13 +4,13 @@ import express from "express";
 declare global {
     namespace NodeJS {
         interface Global {
-            appRoot: string;
+            rootUrl: string;
         }
     }
 }
 
 declare module NodeJS {
     interface Global {
-        appRoot: string
+        rootUrl: string
     }
 }
