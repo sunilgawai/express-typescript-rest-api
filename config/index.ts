@@ -1,5 +1,10 @@
 import dotenv from 'dotenv';
+import path from 'path';
 dotenv.config();
+
+const rootUrl = path.resolve(__dirname);
+
+export { rootUrl };
 
 export const {
     APP_PORT,

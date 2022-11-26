@@ -20,7 +20,7 @@ const productValidationSchema = Joi.object({
     price: Joi.string().required(),
     size: Joi.string().required(), // "sm" | "lg" | "xl"
     desc: Joi.string().required(),
-    images: Joi.array().required(),
+    images: Joi.array(),
     liked: Joi.boolean().required(),
     featured: Joi.boolean().required().default(false),
 })

@@ -4,11 +4,11 @@ import path from "path";
 import fs from "fs";
 import { CustomErrorHandler } from "../../services";
 import { productValidationSchema } from "../../validators";
-import { APP_URL } from "../../../config";
+import { rootUrl } from "../../../config";
 
 const storage = multer.diskStorage({
     destination(req, file, callback) {
-        callback(null, '/public/uploads')
+        callback(null, `public/uploads/`)
     },
     filename(req, file, callback) {
         let uniqueName = `${Date.now().toString()}-${Math.round(Math.random() * 1E9)}${path.extname(file.originalname)}`
@@ -19,33 +19,42 @@ const storage = multer.diskStorage({
 const handleMultipartData = multer({
     storage: storage,
     limits: { fileSize: 1000000 * 5 }
-}).array('images', 4);
+}).array('images')
 
 const store: RequestHandler = (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.body);
+    console.log(req.files);
+    // Multipart form data
+    try {
+        handleMultipartData(req, res, async err => {
+            if (err) {
+                return next(CustomErrorHandler.serverError(err.message));
+            }
+            const filePath = req.file?.path;
 
-    handleMultipartData(req, res, async err => {
-        if(err) {
-            return next(CustomErrorHandler.serverError(err.message));
-        }
-        // Get FilePath
-        const filePath = req.file?.path;
-        // Validate the request body.
-        const { error } = productValidationSchema.validate(req.body);
-        if (error) {
-            // If Error Delete File From Storage.
-            fs.unlink(`${APP_URL}/${filePath}`, err => {
-                if(err) {
-                    return next(CustomErrorHandler.serverError());
-                }
-            })
-        }
+            // Request Validation.
+            const { error } = productValidationSchema.validate(req.body);
+            if (error) {
+                // Delete the uploaded file
+                fs.unlink(`${rootUrl}/${filePath}`, (err) => {
+                    if (err) {
+                        return next(
+                            CustomErrorHandler.serverError(err.message)
+                        );
+                    }
+                });
+                return next(error);
+                // rootfolder/uploads/filename.png
+            }
+        })
+    } catch (error) {
         return next(error);
-        // rootfolder/uploads/filename.png
-    })
-
+    }
+    
     // Handling the saving functionalities.
-
-    res.json({name:"ok"})
+    const { name, price, size, desc, liked, featured } = req.body;
+    const images = req.files;
+    res.json({ name, price, size, desc, images, liked, featured })
 }
 
 export default store;

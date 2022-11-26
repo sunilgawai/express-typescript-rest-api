@@ -2,7 +2,7 @@
   "name": "express-typescrip-server-boilerplate",
   "version": "1.0.0",
   "description": "This is a boilerplate for Express && TypeScript Server.",
-  "main": "Server.ts",
+  "main": "src/Server.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node dist/Server.js",
